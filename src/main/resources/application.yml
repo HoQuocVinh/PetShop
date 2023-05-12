@@ -1,14 +1,14 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/pet-love
+      uri: mongodb://localhost:27017/clothes-shop
 
 server:
   error:
     include-binding-errors: always
     include-exception: true
     include-message: always
-  port: 8081
+  port: 8080
 
 web:
   cors: allowed-origins=http\://localhost\:4200,https\://localhost:3000,https\://localhost:4000
