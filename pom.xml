@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.stc</groupId>
-    <artifactId>pet-love</artifactId>
+    <artifactId>clothes-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Pet-Love</name>
-    <description>Pet-Love</description>
+    <name>Clothes-Shop</name>
+    <description>Clothes-Shop</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
