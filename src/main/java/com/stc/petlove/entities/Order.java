@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "orders")
-public class Order {
+public class Order extends AbstractEntity{
     @Id
     private String id;
     private String cartId;

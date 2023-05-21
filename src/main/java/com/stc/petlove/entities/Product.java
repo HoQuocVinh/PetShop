@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "products")
-public class Product {
+public class Product extends AbstractEntity{
     private String id;
     private String productName;
     private String description;

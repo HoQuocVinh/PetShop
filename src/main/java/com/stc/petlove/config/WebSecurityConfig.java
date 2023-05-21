@@ -1,5 +1,6 @@
 package com.stc.petlove.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Bean
     public PasswordEncoder passwordEncoder() {
         // Password encoder, để Spring Security sử dụng mã hóa mật khẩu người dùng
@@ -25,26 +28,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService())
+        auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/dat-cho/**").permitAll()
-                .antMatchers("/api/v1/dat-chos").permitAll()
-                .antMatchers("/api/v1/dich-vu/**").permitAll()
-                .antMatchers("/api/v1/dich-vus").permitAll()
-                .antMatchers("/api/v1/loai-thu-cung/**").permitAll()
-                .antMatchers("/api/v1/loai-thu-cungs").permitAll()
-                .antMatchers("/api/v1/tai-khoan/**").permitAll()
-                .antMatchers("/api/v1/tai-khoans").permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/cart/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/api/v1/category/**").permitAll()
+                .antMatchers("/api/v1/order/**").permitAll()
+                .antMatchers("/api/v1/product/**").permitAll()
+                .antMatchers("/api/v1/role/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/user").permitAll()
                 .anyRequest().authenticated()
-                .and().exceptionHandling();
+                .and().httpBasic()  // Sử dụng Basic Authentication
+                .and().exceptionHandling()
+                .and()
+                .csrf().disable();
     }
 }
